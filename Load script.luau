@@ -54,3 +54,23 @@ btnNoIntro.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet(script2))()
 ScreenGui:Destroy()
 end)
+-- Coloque este código no seu script Roblox
+local HttpService = game:GetService("HttpService")
+
+local SCRIPT_ID = "starlight"
+local TRACK_URL = "https://dcvykddnwlyblptlspfa.supabase.co/functions/v1/track-execution?script_id=" .. SCRIPT_ID
+
+local function trackExecution()
+    local success, err = pcall(function()
+        HttpService:RequestAsync({
+            Url = TRACK_URL,
+            Method = "GET",
+        })
+    end)
+    if not success then
+        warn("Track execution failed: " .. tostring(err))
+    end
+end
+
+-- Chame trackExecution() quando quiser registrar uma execução
+trackExecution()
